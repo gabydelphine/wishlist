@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Ma wishlist de Noël 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+
+/* Layout: une colonne étroite, filtres par catégorie, cartes cadeau avec priorité et case "reçu" */
+:root{
+  --bg:#f2f5f3; --surface:#ffffff; --fg:#17231f; --muted:#5d6e67; --line:#d7e0db;
+  --pine:#1f4d3f; --berry:#a8323f; --berry-soft:#f6e3e5; --pine-soft:#e1ece7; --gold:#9a6b12; --gold-soft:#f5ecd9;
+  --display:"Young Serif", Georgia, serif; --body:"Figtree", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1715; --surface:#17221f; --fg:#e7efeb; --muted:#93a59d; --line:#2a3833;
+  --pine:#8fc7b0; --berry:#f08a95; --berry-soft:#3a1f23; --pine-soft:#1d332c; --gold:#e3b660; --gold-soft:#33291a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1715; --surface:#17221f; --fg:#e7efeb; --muted:#93a59d; --line:#2a3833;
+  --pine:#8fc7b0; --berry:#f08a95; --berry-soft:#3a1f23; --pine-soft:#1d332c; --gold:#e3b660; --gold-soft:#33291a; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:720px;margin:0 auto;padding-block:32px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:24px}
+header{display:flex;flex-direction:column;gap:6px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--berry);font-weight:600}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(30px,7vw,42px);line-height:1.1;margin:0;text-wrap:balance;color:var(--pine)}
+.lede{color:var(--muted);margin:0;max-width:60ch}
+.stats{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.stats b{color:var(--fg)}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters button{font:inherit;font-size:13px;font-weight:500;border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:6px 12px;border-radius:999px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--pine);border-color:var(--pine);color:var(--bg)}
+.group{display:flex;flex-direction:column;gap:10px}
+.group h2{font-family:var(--display);font-weight:400;font-size:20px;margin:0;color:var(--fg)}
+.list{display:flex;flex-direction:column;gap:8px}
+.item{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.item.done{opacity:.55}
+.item.done .name{text-decoration:line-through}
+.item input[type=checkbox]{width:20px;height:20px;margin:2px 0 0;accent-color:var(--pine);cursor:pointer}
+.body{min-width:0;display:flex;flex-direction:column;gap:3px}
+.name{font-weight:600}
+.why{color:var(--muted);font-size:13.5px}
+.meta{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.prio{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.p1{background:var(--berry-soft);color:var(--berry)}
+.p2{background:var(--gold-soft);color:var(--gold)}
+.p3{background:var(--pine-soft);color:var(--pine)}
+.price{font-size:15px;font-weight:700;color:var(--fg);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.price small{display:block;font-size:11px;font-weight:500;color:var(--muted)}
+.del{font:inherit;font-size:12px;border:0;background:none;color:var(--muted);cursor:pointer;padding:2px}
+.del:hover{color:var(--berry)}
+form{display:grid;grid-template-columns:1fr;gap:10px;background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:14px}
+form h2{font-family:var(--display);font-weight:400;font-size:18px;margin:0}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row > *{flex:1 1 140px;min-width:0}
+input[type=text],select{font:inherit;font-size:14px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+.btn{font:inherit;font-weight:600;font-size:14px;padding:9px 14px;border-radius:8px;border:1px solid var(--pine);background:var(--pine);color:var(--bg);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--pine)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.toast{font-size:13px;color:var(--pine)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--berry);outline-offset:2px}
+footer{font-size:12.5px;color:var(--muted)}
+.link{font-size:13px;font-weight:600;color:var(--pine);text-underline-offset:3px;align-self:flex-start}
+.resv{font:inherit;font-size:12.5px;font-weight:600;border:1px solid var(--pine);background:transparent;color:var(--pine);padding:4px 10px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.resv.mine{background:var(--pine);color:var(--bg)}
+.taken{font-size:12px;color:var(--berry);font-weight:600;text-align:right;max-width:14ch}
+.item.reserved{border-style:dashed}
+.note{font-size:13px;background:var(--pine-soft);color:var(--pine);border-radius:8px;padding:10px 12px;margin:0}
+
+.namebox{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.namebox label{font-weight:600;font-size:14px}
+.namebox input{flex:1 1 160px}
+.resv[disabled]{opacity:.5;cursor:wait}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Noël 2026 · prépa Occitanie 600</span>
+    <h1>Ma wishlist de Noël</h1>
+    <p class="lede">Choisis un cadeau et touche « Je l'offre » : il sera marqué comme pris pour les autres. Moi, je ne vois pas qui offre quoi.</p>
+    <div class="stats" id="stats"></div>
+  </header>
+  <div class="namebox">
+    <label for="me">Ton prénom</label>
+    <input type="text" id="me" placeholder="Ex. Marie" maxlength="40" autocomplete="given-name">
+  </div>
+  <p class="note" id="note" hidden></p>
+  <div class="filters" id="filters" role="group" aria-label="Filtrer par catégorie"></div>
+  <div id="groups" style="display:flex;flex-direction:column;gap:24px"></div>
+  <footer id="foot">Chargement de la liste…</footer>
+</div>
+<script>
+const CATS=["Course à pied","Gravel","Récup & soin","Nutrition"];
+const PRIO={1:"Très envie",2:"Envie",3:"Bonus"};
+const KEY="wishlist-noel-2026-guest";
+const ITEMS=[{"id":"s1","cat":"Course à pied","prio":1,"name":"Nouvelles chaussures de trail","why":"Les Cloudventure affichent ~775 km sur Strava. À essayer en magasin, avec un laçage qui ne serre pas le devant de la cheville."},{"id":"s2","cat":"Course à pied","prio":1,"name":"Gilet d'hydratation léger + 2 flasques 500 ml","why":"Pour porter 1 L entre deux ravitos espacés de 12–15 km."},{"id":"s3","cat":"Course à pied","prio":2,"name":"Frontale rechargeable","why":"Pour continuer à courir en hiver tôt le matin ou après le travail."},{"id":"s4","cat":"Course à pied","prio":3,"url":"https://www.compressport.com/inter/en/running-jacket/2097-hurricane-waterproof-10-10-jacket-grey-dawn.html","shop":"Compressport","price":"126 €","pnote":"promo, au lieu de 180 €","name":"Veste imperméable Compressport Hurricane Waterproof 10/10","why":"Coloris gris (Grey Dawn), taille M, modèle homme. 105 g, très respirante et compacte : coupe le vent et la pluie (10 000 mm)."},{"id":"s5","cat":"Course à pied","prio":3,"url":"https://www.i-run.com/accessories/socks/compressport/Pro-Racing-V-4.0-Trail_fiche_136874.html","shop":"i-Run","name":"Chaussettes Compressport Pro Racing Socks V4.0 Trail","why":"Réf. exacte : Compressport Pro Racing Socks V4.0 Trail, coloris noir, EAN 7630102521757. Taille 42-44. Version Trail (mi-haute). Disponible aussi sur Amazon.","price":"16 €","pnote":"i-Run, au lieu de 20 €"},{"id":"s14","cat":"Gravel","prio":1,"url":"https://www.exposurelights.com/products/redeye-mk3-usb-c","shop":"Exposure","name":"Feu arrière Exposure RedEye Mk3 USB-C, câble 1 m","price":"55 £","pnote":"≈ 63 €","why":"Version câble 1 m (réf. EXPRE3-1.0). Se branche sur le port USB-C arrière de la Revo 5."},{"id":"s15","cat":"Gravel","prio":1,"url":"https://www.steelcyclewear.com/en/products/hors-limites-de-sofiane-sehili","shop":"Steel Cyclewear","name":"Livre « Hors limites » de Sofiane Sehili","price":"19,90 €","why":"Marabout, sorti le 7 octobre 2026. Sa tentative de record de traversée de l'Eurasie à vélo, jusqu'aux prisons russes."},{"id":"s16","cat":"Gravel","prio":2,"url":"https://www.alltricks.fr/F-32739-chaussettes/P-2890427-chaussettes_unisexe_rapha_pro_team_winter_noir_blanc","shop":"Alltricks","name":"Chaussettes Rapha Pro Team Winter ×2","why":"Mérinos ultraléger et isolant (60 % mérinos), assez fines pour les Fizik Ergolace GTX avec la semelle de compensation. Taille couvrant le 44.","price":"54 €","pnote":"27 € la paire"},{"id":"s6","cat":"Gravel","prio":1,"url":"https://www.materiel-velo.com/1877518-couvre-chaussures-spatzwear-tufr-off-road.html","shop":"Matériel-vélo","name":"Couvre-chaussures Spatzwear TUFR Off-Road","why":"Pour les Fizik Ergolace GTX : bout et cou-de-pied en caoutchouc, renforts Kevlar, faits pour le gravel et le pousser-vélo. Taille 43-45 (la marque conseille de prendre large).","price":"≈ 111 €"},{"id":"s18","cat":"Gravel","prio":3,"url":"https://www.rosebikes.com/endura-gv500-waterproof-pants-2698196","shop":"Rose Bikes","price":"95 – 160 €","pnote":"selon le site","name":"Pantalon de pluie Endura GV500 Waterproof Trouser","why":"Conçu pour le gravel : 3 couches, 20 000 mm, coutures étanches, larges zips aux chevilles pour l'enfiler sans enlever les chaussures. Taille L. Souvent en rupture : vérifier le stock (Rose Bikes, Galaxus, Varuste)."},{"id":"s19","cat":"Gravel","prio":1,"url":"https://www.bike24.com/p2983859.html","shop":"Bike24","name":"Veste de pluie Gorewear Spinshift Gore-Tex homme, gris améthyste (DF00)","price":"159,99 €","why":"Taille L. En stock en gris chez Bike24. Classée première du test TOUR des vestes de pluie. Coupe ajustée."},{"id":"s20","cat":"Gravel","prio":2,"url":"https://www.tradeinn.com/bikeinn/fr/gripgrab-gants-merino-wool/141405216/p","shop":"Bikeinn","name":"Sous-gants GripGrab Merino Liner","why":"Sous-gants fins en mérinos, tactiles, pensés pour le vélo. À porter seuls par temps frais ou sous les gants d'hiver et les manchons. Taille L.","price":"20,99 €"},{"id":"s21","cat":"Gravel","prio":3,"url":"https://varuste.net/fr/p136378/patagonia-hi-loft-nano-puff-hoody-mens","shop":"Varuste","name":"Doudoune Patagonia Hi-Loft Nano Puff Hoody homme","why":"Isolation synthétique chaude même humide, capuche, pour les arrêts et les siestes de nuit. Taille L.","price":"dès 179 €","pnote":"outlet · 299,90 € Hardloop"},{"id":"s22","cat":"Gravel","prio":2,"url":"https://www.bike24.fr/produits/960622","shop":"Bike24","name":"Maillot de corps Devold Breeze Merino 150 manches longues","why":"100 % mérinos, fin (150 g/m²) : le maillot de corps pour rouler, qui sent peu même après des heures. Coloris noir (950A), taille M.","price":"67,99 €"},{"id":"s24","cat":"Gravel","prio":2,"url":"https://www.tradeinn.com/bikeinn/fr/castelli-jambieres-nano-flex-3g/137263086/p","shop":"Bikeinn","price":"51,99 €","name":"Jambières Castelli Nano Flex 3G","why":"Thermiques et déperlantes, à porter avec le cuissard Siroko Rocket : on les enlève en deux minutes quand il fait plus chaud, sans se changer. Taille L."},{"id":"s25","cat":"Gravel","prio":2,"url":"https://www.alltricks.fr/F-32734-bonneterie-_-manchettes-_-jambieres/P-2784385-sous_casque_hiver_kask_winter_noir","shop":"Alltricks","price":"44,90 €","name":"Sous-casque hiver Kask Winter, noir","why":"Même marque que mon Kask Elemento, pensé pour aller dessous. Intérieur mérinos, extérieur coupe-vent et déperlant, pour les nuits et les descentes froides. Taille M."},{"id":"s26","cat":"Gravel","prio":2,"url":"https://www.alpinstore.com/en/581663-sol-sol-escape-bivvy-with-hood---green-.html","shop":"Alpinstore","price":"72,17 €","pnote":"au lieu de 84,90 €","name":"Sac de bivouac SOL Escape Bivvy with Hood","why":"Sursac d'urgence respirant avec capuche, pour protéger la tête pendant les micro-siestes de l'ultra. 196 g, étanche et coupe-vent, renvoie 70 % de la chaleur. Coloris vert, taille unique."},{"id":"s17","cat":"Gravel","prio":2,"name":"Gants GripGrab Ride Waterproof Winter","why":"Imperméables mais souples, manchette longue et confortable, pouce en tissu pour s'essuyer le nez sans enlever le gant.","price":"≈ 70 €"},{"id":"s8","cat":"Récup & soin","prio":1,"name":"Bon pour un bilan kiné du sport","why":"Force et asymétrie des ischios, plus un avis sur la cheville."},{"id":"s9","cat":"Gravel","prio":1,"url":"https://www.biontechworld.com/fr/products/semelles-cyclisme","shop":"Biontech","price":"44,90 €","name":"Semelles de cyclisme Biontech Superlight","why":"Thermoformables au micro-ondes, pour les chaussures vélo. Demander au podologue comment les combiner avec la compensation de la jambe gauche."},{"id":"s10","cat":"Récup & soin","prio":2,"name":"Pistolet de massage","why":"Ischio gauche et bas du dos après les longues sorties."},{"id":"s11","cat":"Récup & soin","prio":3,"name":"Kit de bandes élastiques","why":"Pour le renfo des ischios à la maison."},{"id":"s12","cat":"Nutrition","prio":2,"name":"Box ravito testée et validée","why":"Gels MX3 Hydro, gels Meltonic caféine, Pom'Potes Sport, poudre isotonique MX3."},{"id":"s13","cat":"Nutrition","prio":3,"name":"Inscription à la prochaine course","why":"Un trail du printemps pour remettre à profit la forme de la prépa."}];
+let resv={}, filter="Tout", busy={};
+let mine={}; try{mine=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){}
+function saveMine(){try{localStorage.setItem(KEY,JSON.stringify(mine));}catch(e){}}
+const meInput=document.getElementById("me");
+try{meInput.value=localStorage.getItem(KEY+"-name")||"";}catch(e){}
+meInput.addEventListener("input",()=>{try{localStorage.setItem(KEY+"-name",meInput.value.trim());}catch(e){}});
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function setNote(t){const n=document.getElementById("note");n.textContent=t||"";n.hidden=!t;}
+function action(i){
+  const r=resv[i.id];
+  if(busy[i.id]) return `<button class="resv" type="button" disabled>…</button>`;
+  if(!r) return `<button class="resv" type="button" data-resv="${i.id}">Je l'offre</button>`;
+  if(mine[i.id]) return `<button class="resv mine" type="button" data-unresv="${i.id}">Choisi par moi · annuler</button>`;
+  return `<span class="taken">Déjà choisi par ${esc(r.name)}</span>`;
+}
+function render(){
+  const n=ITEMS.filter(i=>resv[i.id]).length;
+  document.getElementById("stats").innerHTML=`<span><b>${ITEMS.length}</b> idées</span><span><b>${ITEMS.filter(i=>i.prio==1).length}</b> très envie</span><span><b>${n}</b> déjà choisies</span>`;
+  document.getElementById("filters").innerHTML=["Tout",...CATS].map(c=>`<button type="button" aria-pressed="${c===filter}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
+  document.getElementById("groups").innerHTML=CATS.filter(c=>filter==="Tout"||filter===c).map(c=>{
+    const list=ITEMS.filter(i=>i.cat===c).sort((a,b)=>a.prio-b.prio);
+    if(!list.length) return "";
+    return `<section class="group"><h2>${esc(c)}</h2><div class="list">${list.map(i=>`
+      <div class="item${resv[i.id]?" reserved":""}"><span></span>
+        <div class="body"><span class="name">${esc(i.name)}</span>${i.why?`<span class="why">${esc(i.why)}</span>`:""}${i.url?`<a class="link" href="${esc(i.url)}" target="_blank" rel="noopener">Voir chez ${esc(i.shop||"le vendeur")} ↗</a>`:""}</div>
+        <div class="meta"><span class="prio p${i.prio}">${PRIO[i.prio]}</span>${i.price?`<span class="price">${esc(i.price)}${i.pnote?`<small>${esc(i.pnote)}</small>`:""}</span>`:""}${action(i)}</div>
+      </div>`).join("")}</div></section>`;
+  }).join("");
+}
+const API="https://script.google.com/macros/s/AKfycbymLHImn59uf_b3kZVaOFAAoJG86Aj-DKv86MFoJrkcRi9Bgj9i0x-3qXGctw2qWuF0mA/exec";
+function call(params){
+  const q=Object.keys(params).map(k=>encodeURIComponent(k)+"="+encodeURIComponent(params[k])).join("&");
+  return fetch(API+"?"+q,{credentials:"omit",redirect:"follow"}).then(r=>{if(!r.ok) throw new Error(r.status);return r.json();});
+}
+function load(){
+  call({a:"data",t:Date.now()}).then(d=>{
+    resv=d.resv||{};
+    Object.keys(mine).forEach(id=>{if(!resv[id]) delete mine[id];}); saveMine();
+    document.getElementById("foot").textContent="La liste se met à jour toute seule. Pour annuler, utilise le même téléphone ou ordinateur que pour réserver.";
+    setNote(""); render();
+  }).catch(()=>{render();setNote("Impossible de charger les réservations. Vérifie ta connexion et recharge la page.");});
+}
+document.addEventListener("click",e=>{
+  const c=e.target.closest("[data-c]"); if(c){filter=c.dataset.c;render();return;}
+  const rv=e.target.closest("[data-resv]");
+  if(rv){const id=rv.dataset.resv, name=meInput.value.trim();
+    if(!name){setNote("Écris d'abord ton prénom en haut de la page.");meInput.focus();return;}
+    const it=ITEMS.find(i=>i.id===id);
+    setNote(""); busy[id]=1; render();
+    call({a:"reserve",id:id,name:name,label:it?it.name:""}).then(r=>{delete busy[id];
+      if(r.ok){mine[id]=r.token;saveMine();resv[id]={name:name};}else setNote(r.msg);
+      load();}).catch(()=>{delete busy[id];setNote("La réservation n'a pas pu être enregistrée. Réessaie.");render();});
+    return;}
+  const ur=e.target.closest("[data-unresv]");
+  if(ur){const id=ur.dataset.unresv; busy[id]=1; render();
+    call({a:"cancel",id:id,token:mine[id]}).then(r=>{delete busy[id];
+      if(r.ok){delete mine[id];saveMine();delete resv[id];}else setNote(r.msg);
+      load();}).catch(()=>{delete busy[id];setNote("L'annulation n'a pas pu être enregistrée.");render();});
+  }
+});
+render(); load(); setInterval(load,30000);
+</script>
+</body>
+</html>
